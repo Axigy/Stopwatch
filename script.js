@@ -19,12 +19,17 @@ let int = null;
 
 let isTimerStarted = false;
 
+let allLaps = [];
+let lapsNumber = 1;
+
 function startTimer() {
   if (isTimerStarted === false) {
     int = setInterval(displayTimer, 10);
   } else {
     clearInterval(int);
   }
+  changeStartBtn();
+  checkIsResetAvailable();
 }
 
 function displayTimer() {
@@ -46,4 +51,70 @@ function displayTimer() {
   time.innerHTML = `${m}:${s},${ms}`;
 }
 
+function changeStartBtn() {
+  if (isTimerStarted === false) {
+    isTimerStarted = true;
+
+    startBtn.innerHTML = "Stop";
+    startBtn.classList.add("timerStarted");
+    mainStartBtn.classList.add("timerStartedMain");
+  } else {
+    isTimerStarted = false;
+
+    startBtn.innerHTML = "Start";
+    startBtn.classList.remove("timerStarted");
+    mainStartBtn.classList.remove("timerStartedMain");
+  }
+}
+
+function checkIsResetAvailable() {
+  if (isTimerStarted === false) {
+    lapResetBtn.innerHTML = "Reset";
+  } else {
+    lapResetBtn.innerHTML = "Lap";
+  }
+}
+
+function displayLaps() {
+  lapsNumber++;
+  laps.innerHTML = "";
+  if (allLaps.length > 0) {
+    allLaps.map((item) => {
+      laps.innerHTML += `
+            <div class="lap">
+            <span>Lap ${item.number} </span>
+            <span>${item.time} </span>
+            </div>
+            `;
+    });
+  }
+}
+
+function writeNewLap() {
+  if (isTimerStarted === false) {
+    clearInterval(int);
+    m = 0;
+    sec = 0;
+    ms = 0;
+
+    milisec = 0;
+    sec = 0;
+    min = 0;
+
+    allLaps = [];
+    laps.innerHTML = "";
+    lapsNumber = 1;
+
+    time.innerHTML = "00:00,00";
+  } else {
+    allLaps.push({
+      time: m + ":" + s + "," + ms,
+      number: lapsNumber,
+    });
+    displayLaps();
+    console.log(allLaps);
+  }
+}
+
 startBtn.addEventListener("click", startTimer);
+lapResetBtn.addEventListener("click", writeNewLap);

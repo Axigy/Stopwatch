@@ -65,15 +65,37 @@ body {
   color: white;
 }
 
+.timerStarted {
+  background-color: #340e0b;
+  color: #bc3d43;
+}
+
+.timerStartedMain {
+  border: 5px solid #340e0b;
+}
+
+.lap {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 30px;
+  margin-right: 30px;
+  font-size: 60px;
+  color: white;
+}
+
 @media (max-width: 600px) {
   .buttons button {
     font-size: 40px;
     width: 150px;
     height: 150px;
   }
+  .lap {
+    font-size: 40px;
+  }
 }
 @media (max-width: 460px) {
   .time {
+    height: 300px;
     font-size: 80px;
   }
   .buttons {
@@ -84,5 +106,10 @@ body {
     font-size: 30px;
     width: 120px;
     height: 120px;
+  }
+  .lap {
+    margin-left: 30px;
+    margin-right: 30px;
+    font-size: 30px;
   }
 }
